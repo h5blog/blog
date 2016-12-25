@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js原型链prototype-陈晓迪的博客</title>
+	<meta name="keywords" content="js原型链prototype web前端 h5 js css css3 html html5"/>
+	<meta name="description" content="js原型链prototype web前端 h5 js css css3 html html5" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+<script type="text/javascript">
+	var require = {urlArgs: "v=@@timestamp"}
+	var nowPage="prototype";
+</script>
+<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+<script>
+	require.config({
+　　　　　　baseUrl: "js/",
+		   paths: {
+　　　　　　    "zepto": "../lib/zepto.min"
+　　　　    }
+　　    });
+</script>
+	<div class="content">
+		<h1 class="title">js原型链</h1>
+<pre>
+    var dom = function(){    
+    };
+    dom.show = function(){
+        alert("show");
+    };
+    dom.prototype.hidden = function(){
+        alert("hidden");
+    };
+ 
+    dom.hidden(); //error
+    dom.show();  
+    var d = new dom();
+    d.hidden();
+    d.show(); //error
+</pre>
+		<p>1、不使用prototype属性定义的对象方法，是静态方法，只能直接用类名进行调用！另外，此静态方法中无法使用this变量来调用对象其他的属性！</p>
+		<p>2、使用prototype属性定义的对象方法，是非静态方法，只有在实例化后才能使用！其方法内部可以this来引用对象自身中的其他属性!</p>
+	</div>
+	<div class="pagelist">@@include('html_modules/list.html')</div>
+</body>
+</html>
