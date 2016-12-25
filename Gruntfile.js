@@ -7,10 +7,10 @@ module.exports = function(grunt) {
     banner: '/*!<%= grunt.template.today("yyyy-mm-dd") %> */\n',
     clean: {
       css: {
-        src: ['dest/css/*']
+        src: ['h5/css/*']
       },
-      html:{
-        src: ['dest/*.html']
+      js:{
+        src: ['h5/js/*']
       }
     },
     concat : {
@@ -18,13 +18,13 @@ module.exports = function(grunt) {
           src: [
               'js/blog.js'
             ],
-            dest: "dest/js/blog.js"
+            dest: "h5/js/blog.js"
         },
         css : {
             src: [
               'css/blog.css'
             ],
-          dest:'dest/css/blog.css'
+          dest:'h5/css/blog.css'
         }
     },
     uglify: {
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
       bulid: {
         files: [
         {
-          "dest/js/blog.min.js": ['dest/js/blog.js']
+          "h5/js/blog.min.js": ['h5/js/blog.js']
         },
         ],
       }
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
       },
       build: {
         files: [{
-          "dest/css/blog.min.css": ['dest/css/blog.css']
+          "h5/css/blog.min.css": ['h5/css/blog.css']
         }]
       }
     },
@@ -56,14 +56,14 @@ module.exports = function(grunt) {
         compile: {
           expand: true,
           src: '*.html',
-          dest: 'dest/'
+          dest: 'h5/'
       }
     },
     copy: {
         main: {
           files: [
-            {expand: true, src: ['lib/*'], dest: 'dest/', filter: 'isFile'},
-            {expand: true, src: ['images/*'], dest: 'dest/', filter: 'isFile'}
+            {expand: true, src: ['lib/*'], dest: 'h5/', filter: 'isFile'},
+            {expand: true, src: ['images/*'], dest: 'h5/', filter: 'isFile'}
           ]
         }
     },
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
             ]
           },
           files: [
-            {expand: true, flatten: true,src: ['dest/*.html'], dest: 'dest/'}
+            {expand: true, flatten: true,src: ['h5/*.html'], dest: 'h5/'}
           ]
         }
     }
@@ -99,6 +99,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Default task.
-  grunt.registerTask('default', ['clean','concat','uglify','cssmin','copy','includereplace','replace']);
+  grunt.registerTask('default', ['clean','concat','uglify','cssmin','includereplace','replace','copy']);
 
 };
