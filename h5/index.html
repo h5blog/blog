@@ -10,7 +10,7 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var require = {urlArgs: "v=1483522298562"}
+		var require = {urlArgs: "v=1483522741338"}
 		var nowPage="bibao"
 	</script>
 	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
@@ -38,10 +38,10 @@
 	var add=wai();
 	add();
 </pre>
-		<p>变量add实际上是指向了函数wai函数的内部函数nei，再执行add()后就会弹出一个窗口显示i的值（第一次为1）。</p>
+		<p>变量add实际上是指向了函数wai函数的内部函数nei，再执行add()后就会弹出一个窗口显示i的值（第一次为1）</p>
 		<p>因为函数wai以外的变量add引用了函数wai内的函数nei,所以这段代码其实就创建了一个闭包</p>
 		<p class="titleFont">Javascript回收机制</p>
-		<p>在Javascript中，如果一个对象不再被引用，那么这个对象就会被GC回收。如果两个对象互相引用，而不再被第3者所引用，那么这两个互相引用的对象也会被回收。因为函数wai被nei引用，nei又被wai以外的add引用，所以函数wai执行后不会被回收的原因。因为不回被回收，所以闭包有一个非常严重的问题，那就是内存浪费问题，这个内存浪费不仅仅因为它常驻内存，更重要的是，对闭包的使用不当会造成无效内存的产生</p>
+		<p>在Javascript中，如果一个对象不再被引用，那么这个对象就会被GC回收。如果两个对象互相引用，而不再被第3者所引用，那么这两个互相引用的对象也会被回收。因为函数wai被nei引用，nei又被wai以外的add引用，所以函数wai执行后不会被回收。因为不会被回收，所以闭包有一个非常严重的问题，那就是内存浪费问题，这个内存浪费不仅仅因为它常驻内存，更重要的是，对闭包的使用不当会造成无效内存的产生</p>
 		<p class="mes">前端面试经常会问到闭包，那么闭包的主要应用场景什么呢？</p>
 		<p class="titleFont">闭包的应用场景</p>
 		<p>应用闭包主要是为了设计私有的方法和变量。这在做框架的时候体现更明显，有些方法和属性只是运算逻辑过程中的使用的，不想让外部修改这些属性，因此就可以设计一个闭包来只提供方法获取，闭包的典型框架应该就是jquery了，我们经常使用的jquery链式操作 $("#id").attr("tag","tag").removeClass("on").addClass("active") 其实就用到了闭包,原理如下：</p>
