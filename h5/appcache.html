@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包－陈晓迪的博客</title>
+	<meta name="keywords" content="js闭包 web前端 h5 js css css3 html html5"/>
+	<meta name="description" content="js闭包 web前端 h5 js css css3 html html5" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var require = {urlArgs: "v=1483522298562"}
+		var nowPage="appcache"
+	</script>
+	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+	<script>
+		require.config({
+	　　　　　　baseUrl: "js/",
+			   paths: {
+	　　　　　　    "zepto": "../lib/zepto.min"
+	　　　　    }
+	　　    });
+	</script>
+	<div class="content">
+		<h1 class="title">appcache</h1>
+		<p class="titleFont">AppCache优势</p>
+		<p>离线浏览 - 用户可在应用离线时使用它们</p>
+		<p>速度 - 已缓存资源加载得更快(条件性的请求)</p>
+		<p>减少服务器负载 - 浏览器将只从服务器下载更新过或更改过的资源</p>
+		<p class="titleFont">添加AppCache</p>
+		<p>1.在html元素上设置缓存< html manifest="index.appcache" ></p>
+		<p>2.添加缓存清单文件index.appcache，编辑index.appcache (把引用到的不经常变动的文件设置缓存)</p>
+<pre>
+CACHE MANIFEST  
+css/test_17_1_1.css  
+js/test_17_1_1.js  
+images/test.jpg
+</pre>
+		<p class="mes">设置缓存以后可以看到第一次进入页面请求码都是200（OK），第二次就是304（Not Modified ）了</p>
+		<p >解释一下Not Modified是客户端有缓冲的文档并发出了一个条件性的请求（一般是提供If-Modified-Since头表示客户只想比指定日期更新的文档）。服务器告诉客户，原来缓冲的文档还可以继续使用。 </p>
+		<p class="titleFont">更新缓存</p>
+		<p>1.用户清空浏览器缓存</p>
+		<p>2.manifest 文件被修改(可以每次打包的时候以日期加上名称给文件命名，这样上线的时候就能更新缓存)</p>
+		<p>3.由程序来更新应用缓存</p>
+		<p class="titleFont">缓存状态</p>
+		<p>window.applicationCache.status</p>
+		<p>0 uncached</p>
+		<p>1 idle</p>
+		<p>2 checking</p>
+		<p>3 downloading</p>
+		<p>4 updateready（一般判断到这个状态，页面就需要重新加载了）</p>
+		<p>5 obsolete</p>
+		<p class="mes">tips:网站的缓存数据量不得超过 5 MB</p>
+	</div>
+	<div class="pagelist"><div id="listPage">
+	<h2>技能&原理篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="bibao">闭包</p>
+		<p class="linkTab" id="prototype">js原型链</p>
+		<p class="linkTab" id="loadPage">网页加载过程</p>
+		<p class="linkTab" id="kuayu">ajax跨域</p>
+		<p class="linkTab" id="appcache">appcache</p>
+		<p class="linkTab" id="shipei">不同屏幕尺寸手机浏览器适配</p>
+	</div>
+	<h2>工具篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="grunt">grunt</p>
+		<p class="linkTab" id="nginx">nginx代理</p>
+		<p class="linkTab" id="git">git</p>
+		<p class="linkTab" id="debugh5">真机调试h5页面</p>
+	</div>
+	<h2>框架篇</h2>
+	<div class="listCon">
+		<p class="linkTab" href="http://cn.vuejs.org/" id="vue">vue</p>
+		<p class="linkTab" href="https://facebook.github.io/react/" id="react">react</p>
+		<p class="linkTab" href="https://angularjs.org/" id="angular">angular</p>
+	</div>
+	<p class="linkTab good" id="good">good</p>
+</div></div>
+</body>
+</html>

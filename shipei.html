@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手机浏览器适配－陈晓迪的博客</title>
+	<meta name="keywords" content="不同屏幕尺寸手机浏览器适配"/>
+	<meta name="description" content="不同屏幕尺寸手机浏览器适配 px em rem" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var require = {urlArgs: "v=@@timestamp"}
+		var nowPage="git"
+	</script>
+	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+	<script>
+		require.config({
+	　　　　　　baseUrl: "js/",
+			   paths: {
+	　　　　　　    "zepto": "../lib/zepto.min"
+	　　　　    }
+	　　    });
+	</script>
+	<div class="content">
+		<h1 class="title">手机浏览器适配</h1>
+		<p>在做pc网页时，经常使用的长度单位是px。但是在手机上会发现不同的手机字体大小差别很大，这是为什么呢，下面来看看px em rem这三个长度单位的具体含义。</p>
+		<p class="titleFont">px em rem</p>
+		<p>px，相对长度单位，px是相对于显示器屏幕分辨率</p>
+		<p>em，相对长度单位，em是相对于父级</p>
+		<p>rem，相对长度单位，rem是相对于根元素</p>
+		<p>由于手机的分辨率差别很大，所以使用px时，不同屏幕分辨率的手机看起来差异很大。因此应该使用rem作为长度单位。</p>
+		<p class="titleFont">推荐淘宝在用的<a href="lib/flexible.js" type="download">flexible.js</a></p>
+		<p>flexible主要是设置在根元素html上设置font-size=device-width*dpr*0.1</p>
+		<p>以iPhone6为例，iPhone6的逻辑分辨率为375px * 667px,而其dpr为2，所以物理像素为750px * 1334px(这就是为什么设计按照iPhone6的尺寸出的稿子是750px * 1334px)。</p>
+		<p>根据上面的公式在调试模式下可以看到当切换到iPhone6时根元素html上会设置font-size: 75px，然后写css的时候就直接用设计稿的大小除以75，单位rem。</p>
+		<p class="titleFont">还有一种简单粗暴的做法</p>
+		<p>直接在html上设置font-size:62.5%,默认dpr=2,然后设置< meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1.1,user-scalable=no" ></p>
+		<p>浏览器默认字体是16px,把根元素的font-size设置成62.5%就是相当于10px,1rem=10px,拿到640的设计稿，css中就应该设计稿的大小除以20</p>
+		<p class="mes">殊途同归，这两种方式都是通过设置根元素（css里用rem做单位，大小相对于根元素）来控制页面效果</p>
+		<p class="titleFont">针对某个屏幕尺寸做适配还可以用media screen(6p为例)</p>
+	<pre> 
+	@media(min-device-width:414px)and(max-device-width:736px)and
+	(-webkit-min-device-pixel-ratio:3){
+	body{background-color:#007aff;}
+	}
+	</pre>
+	</div>
+	<div class="pagelist">@@include('html_modules/list.html')</div>
+</body>
+</html>

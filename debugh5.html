@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>真机调试h5页面－陈晓迪的博客</title>
+	<meta name="keywords" content="安卓 iOS真机调试h5页面"/>
+	<meta name="description" content="安卓 iOS真机调试h5页面" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var require = {urlArgs: "v=@@timestamp"}
+		var nowPage="debugh5"
+	</script>
+	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+	<script>
+		require.config({
+	　　　　　　baseUrl: "js/",
+			   paths: {
+	　　　　　　    "zepto": "../lib/zepto.min"
+	　　　　    }
+	　　    });
+	</script>
+	<div class="content">
+		<h1 class="title">真机调试h5页面</h1>
+		<p class="mes">安卓机调试h5页面</p>
+		<p>首先安装chrome代理插件Proxy SwitchyOmega</p>
+		<p>设置手机为开发者模式</p>
+		<p>用数据线连接手机和电脑</p>
+		<p>在chrome中输入：<a href="chrome://inspect/#devices">chrome://inspect/#devices</a></p>
+		<p class="mes">iOS调试h5页面</p>
+		<p>打开手机设置->safari->高级把javascript和web检查器都开打</p>
+		<img src="images/iphone.png" style="width:350px">
+		<p>用数据线连接手机和电脑</p>
+		<p>打开safari浏览器，找到开发模块(如果没有开发模块，请找到Safari->偏好设置按照下图设置)，下面有对应的手机能看到正在调试的页面</p>
+		<img src="images/safariSet.jpg" style="width:350px">
+		<p class="mes">微信里面真机调试h5页面</p>
+		<p>首先安装微信web开发者工具</p>
+		<p>点击移动调试，按照提示步骤设置好代理</p>
+		<img src="images/wxDebug.jpg" style="width:350px">
+		<p>点击开始调试，如果数据没有加载过来就在微信里刷新一下页面</p>
+		<p class="mes">tip:为了保证开发者身份信息的安全，对于希望调试的公众号，要求开发者微信号与之建立绑定关系。具体操作为：公众号登录管理后台，启用开发者中心，在开发者工具——web 开发者工具页面，向开发者微信号发送绑定邀请<a href="https://mp.weixin.qq.com/wiki/10/e5f772f4521da17fa0d7304f68b97d7e.html#.E8.B0.83.E8.AF.95.E5.BE.AE.E4.BF.A1.E7.BD.91.E9.A1.B5.E6.8E.88.E6.9D.83">(有疑问？)</a></p>
+	</div>
+	<div class="pagelist">@@include('html_modules/list.html')</div>
+</body>
+</html>

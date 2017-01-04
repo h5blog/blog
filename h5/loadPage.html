@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>感觉很赞要打赏？－陈晓迪的博客</title>
-	<meta name="keywords" content="如果您读后感觉收获很大，不妨小额赞助鼓励我一下，宝宝会继续努力写出更多好文。"/>
-	<meta name="description" content="如果您读后感觉收获很大，不妨小额赞助鼓励我一下，宝宝会继续努力写出更多好文。" />
+	<title>网页加载过程－陈晓迪的博客</title>
+	<meta name="keywords" content="从输入网址到出来页面都经历了什么"/>
+	<meta name="description" content="从输入网址到出来页面都经历了什么" />
 	<meta name = "format-detection" content = "telephone=no"> 
 	<link rel="stylesheet" type="text/css" href="css/blog.css">
 </head>
 <body>
 	<script type="text/javascript">
-		var nowPage="good";
 		var require = {urlArgs: "v=1483522298562"}
+		var nowPage="loadPage"
 	</script>
 	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
 	<script>
@@ -23,19 +23,17 @@
 	　　    });
 	</script>
 	<div class="content">
-		<h1 class="title">赞助打赏</h1>
-		<p>如果您读后感觉收获很大，不妨小额赞助鼓励我一下，宝宝会继续努力写出更多好文。</p>
-		<div class="cf" style="width:400px;margin:auto;">
-			<div class="fl moneyCon">
-				<img src="images/happy.png">
-				<p>心情好</p>
-			</div>
-			<p style="width:10px;display:inline-block;margin:40px 0 0 45px;">微信扫一扫</p>
-			<div class="fr moneyCon">
-				<img src="images/fiveyuan.png">
-				<p>土豪赏包辣条好不好</p>
-			</div>
-		</div>
+		<h1 class="title">网页加载过程</h1>
+		<p class="mes">从输入网址到出来页面都经历了什么</p>
+		<p>1.域名解析  服务器可能你不只一台，有很多台，这首先涉及到负载均衡的第一步，通过DNS解析域名时将你的访问分配到不同的入口</p>
+		<p>2.浏览器打开对服务器的TCP连接（建立连接：三次握手）</p>
+		<p>3.浏览器通过TCP连接发送HTTP请求</p>
+		<p>4.浏览器接收HTTP响应并且可能关掉TCP连接（释放连接：四次挥手）</p>
+		<p>5.浏览器检查HTTP响应是否为一个重定向（3xx 结果状态码 ），一个验证请求（401），错误（4xx 5xx）等等，这些都是不同响应的正常处理（2xx）</p>
+		<p>6.如果响应可缓存，将存入缓存(appcache)</p>
+		<p>7.浏览器解码响应（例如：如果它是gzziped压缩）</p>
+		<p>8.浏览器决定如何处理这些响应（例如，它是HTML页面，一张图片，一段音乐）</p>
+		<p>9.浏览器展现响应，对未知类型还会弹出下载对话框,如果是html就会按照css js一步步渲染 如果使用appcache就看配置文件是否改变来决定是否更新缓存</p>
 	</div>
 	<div class="pagelist"><div id="listPage">
 	<h2>技能&原理篇</h2>

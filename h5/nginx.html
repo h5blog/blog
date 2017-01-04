@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>前端本地nginx代理－陈晓迪的博客</title>
+	<meta name="keywords" content="nginx代理"/>
+	<meta name="description" content="nginx代理" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var require = {urlArgs: "v=1483522298562"}
+		var nowPage="nginx"
+	</script>
+	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+	<script>
+		require.config({
+	　　　　　　baseUrl: "js/",
+			   paths: {
+	　　　　　　    "zepto": "../lib/zepto.min"
+	　　　　    }
+	　　    });
+	</script>
+	<div class="content">
+		<h1 class="title">Nginx</h1>
+		<p class="mes">前端开发中经常会遇到各种环境问题，本地开发时用的接口是测试环境，上线时又要改成正式环境，哪天一个不小心忘记改接口就上线，线上展示的都是测试数据就悲剧了。因此代码应该保证本地和线上一样，至于切换环境可以通过修改nginx代理来实现。</p>
+		<p>首先用命令brew install nginx 安装nginx</p>
+		<p>然后，编辑nginx的配置文件（默认位置是：/usr/local/etc/nginx/nginx.conf）</p>
+<pre>
+worker_processes  1;
+events {
+    worker_connections  1024;
+} #events
+http {
+    include mime.types;
+    default_type application/octet-stream;
+    charset  utf-8;
+    gzip on;
+    gzip_buffers     4 8k; 
+    upstream cmsweb {
+    #server  e.dangdang.com;     #线上
+    server  10.10.10.10;    #测试
+    }         
+    server_names_hash_bucket_size 128;
+    client_header_buffer_size 32k;
+    large_client_header_buffers 4 32k;
+    client_max_body_size 300m;
+    keepalive_timeout 60;
+    client_body_buffer_size  512k;
+    proxy_connect_timeout 60;
+    proxy_read_timeout 60;
+    proxy_send_timeout 60;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    server {
+        listen  81;
+        server_name  localhost;
+        location / {
+        root /usr/local/var/www;
+        proxy_ignore_headers Set-Cookie;
+        proxy_hide_header Set-Cookie;
+            proxy_set_header Host $host:$server_port;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            if (!-e $request_filename) {
+                proxy_pass http://cmsweb;
+            } 
+        }
+    } #server
+} #http
+</pre>
+        <p>配置好以后sudo nginx就启动了nginx,然后访问http://localhost:81/ 路径就指向server里的location/root指向的/usr/local/var/www(这个路径可以按照自己的喜好随意修改)</p>
+        <p>本地开发的时候把ajax的url写成相对路径，例如：</p>
+<pre>
+    $.ajax({
+        dataType:"json",
+        url:'/api.go?action=test',
+        data:{
+            mediaId:bookData.mediaId,
+            token:ddbase.getToken(),
+            "platform":"ds_pc"
+        },
+        success:function(response){
+            console.log(response)
+        },
+        error:function(){
+            console.log("error")
+        },
+        timeout:12000
+    });
+</pre>
+        <p>我们在本地开发的时候用的是线下数据，把upstream cmsweb的server指向10.10.10.10，这样实际上请求的是http://10.10.10.10/api.go?action=test</p>
+        <p>上线之前需要用正式环境的数据测试一下，我们再upstream cmsweb的server指向e.dangdang.com，然后用命令sudo nginx -s reload重启一下nginx,这时页面请求的就是这样实际上请求的是http://e.dangdang.com/api.go?action=test</p>
+        <p>整个过程，并不需改改程序里的代码，只需要通过修改nginx配置来切换环境。</p>
+	</div>
+	<div class="pagelist"><div id="listPage">
+	<h2>技能&原理篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="bibao">闭包</p>
+		<p class="linkTab" id="prototype">js原型链</p>
+		<p class="linkTab" id="loadPage">网页加载过程</p>
+		<p class="linkTab" id="kuayu">ajax跨域</p>
+		<p class="linkTab" id="appcache">appcache</p>
+		<p class="linkTab" id="shipei">不同屏幕尺寸手机浏览器适配</p>
+	</div>
+	<h2>工具篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="grunt">grunt</p>
+		<p class="linkTab" id="nginx">nginx代理</p>
+		<p class="linkTab" id="git">git</p>
+		<p class="linkTab" id="debugh5">真机调试h5页面</p>
+	</div>
+	<h2>框架篇</h2>
+	<div class="listCon">
+		<p class="linkTab" href="http://cn.vuejs.org/" id="vue">vue</p>
+		<p class="linkTab" href="https://facebook.github.io/react/" id="react">react</p>
+		<p class="linkTab" href="https://angularjs.org/" id="angular">angular</p>
+	</div>
+	<p class="linkTab good" id="good">good</p>
+</div></div>
+</body>
+</html>

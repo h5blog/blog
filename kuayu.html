@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax跨域－陈晓迪的博客</title>
+	<meta name="keywords" content="ajax跨域解决方案 jsonp Access-Control-Allow-Origin"/>
+	<meta name="description" content="ajax跨域解决方案 jsonp Access-Control-Allow-Origin" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var require = {urlArgs: "v=@@timestamp"}
+		var nowPage="kuayu"
+	</script>
+	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+	<script>
+		require.config({
+	　　　　　　baseUrl: "js/",
+			   paths: {
+	　　　　　　    "zepto": "../lib/zepto.min"
+	　　　　    }
+	　　    });
+	</script>
+	<div class="content">
+		<h1 class="title">ajax跨域</h1>
+		<p class="titleFont">跨域是怎么产生的？</p>
+		<p class="mes">由于js在设计时的同源策略,javascript同源策略阻止从一个源加载的文档或脚本获取或设置另一个源加载的文档的属性。这个策略可以追溯到 Netscape Navigator 2.0。</p>
+		<p>不过我们又发现，Web页面上调用js文件时则不受是否跨域的影响（不仅如此，我们还发现凡是拥有"src"这个属性的标签都拥有跨域的能力，比如< script >、< img >、< iframe >）；</p>
+		<p class="titleFont">跨域解决方案</p>
+		<p class="mes">1、jsonp</p>
+		<p>jsonp通过在页面中创建动态< script >标签的方法向不同域提交HTTP请求，jsonp的一个要点就是允许用户传递一个callback参数给服务端，然后服务端返回数据时会将这个callback参数作为函数名来包裹住JSON数据，这样客户端就可以随意定制自己的函数来自动处理返回数据了。</p>
+		<p>例如在http://a.test.com/index.html这个页面中向http://b.test.com/getData.php提交GET请求</p>
+		<p>我们可以在index.html这个页面中创建一个动态script，代码如下<p>
+ <pre>
+ var eleScript= document.createElement("script"); 
+ eleScript.type = "text/javascript"; 
+ eleScript.src = "http://b.test.com/getData.php?callback=callbackFun"; 
+ document.getElementsByTagName("HEAD")[0].appendChild(eleScript); 
+ </pre>
+		<p>当GET请求从http://b.com/getData.php返回时，可以返回一段JavaScript代码，这段代码会自动执行，可以用来负责调用index.html页面中的一个callbackFun函数。 </p>
+		<p class="mes">jsonp的缺点是只支持GET请求,不支持POST等其它类型的HTTP请求,那么跨域多post请求应该怎么办呢？</p>
+		<p class="mes">2.Access-Control-Allow-Origin：* </p>
+	<pre>
+	$.ajax({
+		url:"http://cxd.test.com/getData.php",
+		crossDomain:true,
+		xhrFields:{
+			withCredentials:true
+		},
+		dataType:'json',
+		success:function(data){
+			console.log(data)
+		}
+	})
+	</pre>
+		<p>这个办法需要服务端同事配合设置服务器header,最简单的是header("Access-Control-Allow-Origin:*");也可以把*变成需要支持跨域的域名</p>
+		<p class="mes">这种跨域方式如何带上cookie呢？</p>
+		<p>很简单只需要把withCredentials设置为true</p>
+		<p class="mes">3.服务端重定向到同源路径</p>
+		<p>例如我们的页面在http://www.work.com下,api放在http://api.work.com/api,当我们请求http://www.work.com/api是服务端重定向到对应的http://api.work.com/api，这样就不会有跨域问题了</p>
+	</div>
+	<div class="pagelist">@@include('html_modules/list.html')</div>
+</body>
+</html>

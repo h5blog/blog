@@ -1,4 +1,3 @@
-/*global module:false*/
 module.exports = function(grunt) {
 
   'use strict';
@@ -11,6 +10,9 @@ module.exports = function(grunt) {
       },
       js:{
         src: ['h5/js/*']
+      },
+      js:{
+        src: ['h5/*.html']
       }
     },
     concat : {
@@ -85,20 +87,26 @@ module.exports = function(grunt) {
             {expand: true, flatten: true,src: ['h5/*.html'], dest: 'h5/'}
           ]
         }
-    }
+    },
+    watch:{
+      html:{
+        files:['html_modules/*.html','*.html'],
+        tasks:['clean','concat','uglify','cssmin','includereplace','replace','copy']
+      }
+    } 
 });
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-include-replace');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['clean','concat','uglify','cssmin','includereplace','replace','copy']);
+  grunt.registerTask('default', ['clean','concat','uglify','cssmin','includereplace','replace','copy','watch']);
 
 };

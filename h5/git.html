@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Git SSH Key 配置步骤 如何在一个电脑上同时使用两个Git账号－陈晓迪的博客</title>
+	<meta name="keywords" content="Git SSH Key 配置步骤 如何在一个电脑上同时使用两个Git账号"/>
+	<meta name="description" content="Git SSH Key 配置步骤 如何在一个电脑上同时使用两个Git账号" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var require = {urlArgs: "v=1483522298562"}
+		var nowPage="git"
+	</script>
+	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+	<script>
+		require.config({
+	　　　　　　baseUrl: "js/",
+			   paths: {
+	　　　　　　    "zepto": "../lib/zepto.min"
+	　　　　    }
+	　　    });
+	</script>
+	<div class="content">
+		<h1 class="title">Git</h1>
+		<p class="mes">Git是分布式的代码管理工具，远程的代码管理是基于SSH的，所以要使用Git就一定要SSH配置。</p>
+		<p class="titleFont">Git SSH Key 配置步骤</p>
+		<p>上图：</p>
+		<img src="images/git.jpg" style="width:450px;">
+		<p>步骤分解：</p>
+		<p>1.进入ssh配置文件所在位置  cd ~/.ssh</p>
+		<p>2.生成ssk  ssh-keygen -t rsa -C "h5blog@sina.com"</p>
+		<p>3.输入秘钥文件名称life（若果直接回车，系统会用默认名称id_rsa）</p>
+		<p>4.输入秘钥的密码（可以直接回车不设置密码），如果设置了密码用到该秘钥的时候会提醒你输入密码</p>
+		<p>5.再次输入秘钥的密码（如果上一步没有设置密码，这一步直接回车）</p>
+		<p>6.添加密钥到ssh：ssh-add life</p>
+		<p>7.ls 回车 会看到当前位置有life 和 life.pub，然后vim life.pub 回车，把秘钥粘出来，配置到服务器。</p>
+		<p class="mes">当我决定写自己的博客时，我就遇到一个问题，又需要登录公司的账号，又想在电脑上使用自己的账号，那么如何在一个电脑上同时使用两个Git的账号呢？</p>
+		<p class="titleFont">一个电脑上同时使用两个Git账号步骤详解</p>
+		<p>重复上述Git SSH Key生成步骤，上面的秘钥文件名称是life，这次注意设置生成秘钥名称的时候为了区别于之前的秘钥设置成work</p>
+		<p>生成好了以后ls回车查看一下 至少应该是有life，life.pub，work，work.pub四个文件的。</p>
+		<p>新建一个config文件 touch config</p>
+		<p>编辑config文件 vim config 回车 i 开始编辑config 下面的内容copy到config里(HostName改成你自己的git服务器的ip或者域名),esc :wq回车 就保存好了</p>
+	<pre>
+	host life
+	HostName http://github.com
+	User h5blog
+	IdentityFile ~/.ssh/life
+
+	Host work
+	HostName 10.10.10.10
+	User work
+	IdentityFile ~/.ssh/work
+	</pre>
+		<p class="mes">一切都配置好了，现在可以开始使用git了，介绍几个常用的git命令</p>
+		<p class="titleFont">Git常用命令</p>
+		<p>git clone git@github.com:h5blog/blog.git  将git服务器上的代码克隆到本地</p>
+		<p>git status 本地git状态，包括修改了哪些文件，删除了哪些文件等等</p>
+		<p>git add. 把要提交的文件的信息添加到索引库中</p>
+		<p>git commit -m "修复了某个bug" git依据索引库中的内容来进行文件的提交</p>
+		<p>git pull 拉取一下git服务器上最新的代码</p>
+		<p>git pull 把本地代码上传到git服务器上</p>
+		<p>git branch 查看当前所在分支</p>
+		<p>git checkout -b dev 新建一个dev分支</p>
+		<p>git checkout -b dev 新建一个dev分支</p>
+		<p>git checkout dev 切换到dev分支</p>
+		<p>git merge master 把master的内容合并到dev<p>
+		<p>git remote -v 当前git的服务器地址<p>
+	</div>
+	<div class="pagelist"><div id="listPage">
+	<h2>技能&原理篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="bibao">闭包</p>
+		<p class="linkTab" id="prototype">js原型链</p>
+		<p class="linkTab" id="loadPage">网页加载过程</p>
+		<p class="linkTab" id="kuayu">ajax跨域</p>
+		<p class="linkTab" id="appcache">appcache</p>
+		<p class="linkTab" id="shipei">不同屏幕尺寸手机浏览器适配</p>
+	</div>
+	<h2>工具篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="grunt">grunt</p>
+		<p class="linkTab" id="nginx">nginx代理</p>
+		<p class="linkTab" id="git">git</p>
+		<p class="linkTab" id="debugh5">真机调试h5页面</p>
+	</div>
+	<h2>框架篇</h2>
+	<div class="listCon">
+		<p class="linkTab" href="http://cn.vuejs.org/" id="vue">vue</p>
+		<p class="linkTab" href="https://facebook.github.io/react/" id="react">react</p>
+		<p class="linkTab" href="https://angularjs.org/" id="angular">angular</p>
+	</div>
+	<p class="linkTab good" id="good">good</p>
+</div></div>
+</body>
+</html>
