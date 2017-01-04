@@ -1,5 +1,9 @@
 define(["zepto"],function($){
-    $("#listPage").find("#"+nowPage).addClass("active");
+	if(nowPage){
+	    $("#listPage").find("#"+nowPage).addClass("active");
+	}else{
+		$("#listPage").find("#bibao").addClass("active");
+	}
     $('body').delegate('.linkTab','click',function(){
         var tag=$(this).attr("id");
         if($(this).attr("href")){
