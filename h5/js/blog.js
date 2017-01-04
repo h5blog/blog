@@ -2,7 +2,7 @@ define(["zepto"],function($){
 	if(nowPage){
 	    $("#listPage").find("#"+nowPage).addClass("active");
 	}else{
-		$("#listPage").find("#bibao").addClass("active");
+		$("#listPage").find("#prototype").addClass("active");
 	}
     $('body').delegate('.linkTab','click',function(){
         var tag=$(this).attr("id");
