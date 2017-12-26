@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网页全屏－陈晓迪的博客</title>
+	<meta name="keywords" content="网页全屏fullscreen"/>
+	<meta name="description" content="网页全屏fullscreen" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link href="images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var nowPage="allScreen";
+		var require = {urlArgs: "v=@@timestamp"}
+	</script>
+	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+	<script>
+		require.config({
+	　　　　　　baseUrl: "js/",
+			   paths: {
+	　　　　　　    "zepto": "../lib/zepto.min"
+	　　　　    }
+	　　    });
+	</script>
+	<div class="content">
+		<h1 class="title">网页全屏展示</h1>
+		<p class="mes">一般手机浏览器上面和下面都会有一些操作栏（如下图）。手机屏幕本来能承载的东西就有限，又占去了一些区域。那么有什么办法去掉呢</p>
+		<div class="imgCon">
+			<img src="images/allScreen.png" style="width:180px;">
+		</div>
+		<p>1.HTML5页面强制竖屏和全屏（部分浏览器兼容）</p>
+<pre>
+		< !-- uc强制竖屏 -- >
+	< meta name="screen-orientation" content="portrait" >
+		< !-- QQ强制竖屏 -- >
+	< meta name="x5-orientation" content="portrait">
+		< !-- UC强制全屏 -- >
+	< meta name="full-screen" content="yes" >
+		< !-- QQ强制全屏 -- >
+	< meta name="x5-fullscreen" content="true" >
+		< !-- UC应用模式 -- >
+	< meta name="browsermode" content="application" >
+		< !-- QQ应用模式 -- >
+	< meta name="x5-page-mode" content="app" >
+</pre>
+	<p>2.HTML5页面强制横屏全屏（部分浏览器兼容）</p>
+	<pre>
+		//强制全屏
+		// 先检测最标准的方法
+      	if(element.requestFullScreen) {
+        	element.requestFullScreen();
+      	} else if(element.mozRequestFullScreen) {
+        	// 其次，检测Mozilla的方法
+        	element.mozRequestFullScreen();
+      	} else if(element.webkitRequestFullScreen) {
+        	// if 检测 webkit的API
+        	element.webkitRequestFullScreen();
+      	}
+    </pre>
+    <pre>
+    	//退出全屏
+      	if(document.cancelFullScreen) {
+        	document.cancelFullScreen();
+      	} else if(document.mozCancelFullScreen) {
+        	document.mozCancelFullScreen();
+      	} else if(document.webkitCancelFullScreen) {
+        	document.webkitCancelFullScreen();
+      	}
+    </pre>
+	</div>
+	<div class="pagelist">@@include('html_modules/list.html')</div>
+</body>
+</html>
