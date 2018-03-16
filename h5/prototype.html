@@ -11,7 +11,7 @@
 </head>
 <body>
 <script type="text/javascript">
-	var require = {urlArgs: "v=1521182029034"}
+	var require = {urlArgs: "v=1521184848925"}
 	var nowPage="prototype";
 </script>
 <script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
@@ -51,7 +51,7 @@
 		<p>详解：</p>
 		<p>1.构造函数Person原型属性Person.prototype指向了原型对象，在原型对象里有共有的方法，所有构造函数声明的实例（see和go）都可以共享这个方法。</p>
 		<p>2.原型对象Person.prototype保存着实例共享的方法，有一个指针constructor指回构造函数。</p>
-		<p>3.see和go是Person这个对象的两个实例，这两个对象也有属性__proto__，指向构造函数的原型对象，这样子就可以访问原型对象的所有方法啦。</p>
+		<p>3.p1和p2是Person这个对象的两个实例，这两个对象也有属性__proto__，指向构造函数的原型对象，这样子就可以访问原型对象的所有方法啦。</p>
 		<p>4.构造函数Person除了是方法，也是对象(在JS里，万物皆对象)，它也有__proto__属性，指向它的构造函数的原型对象。函数的构造函数就是Function，因此这里的__proto__指向了Function.prototype。</p>
 		<p>5.除了Person()，Function(), Object()也是一样的道理。原型对象也是对象，它的__proto__属性，指向它的构造函数的原型对象。这里是Object.prototype,最后，Object.prototype的__proto__属性指向null。</p>
 		<p class="titleFont">原型链</p>
