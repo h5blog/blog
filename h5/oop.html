@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象-陈晓迪的博客</title>
+	<meta name="keywords" content="面向对象-陈晓迪的博"/>
+	<meta name="description" content="面向对象-陈晓迪的博" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link href="images/favicon.ico" type="image/x-icon" rel="shortcut icon" /> 
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+<script type="text/javascript">
+	var require = {urlArgs: "v=1556027040371"}
+	var nowPage="oop";
+</script>
+<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+<script>
+	require.config({
+　　　　　　baseUrl: "js/",
+		   paths: {
+　　　　　　    "zepto": "../lib/zepto.min"
+　　　　    }
+　　    });
+</script>
+	<div class="content">
+		<h1 class="title">面向对象</h1>
+		<p class="titleFont">面向对象三大特点封装、继承、多态</p>
+		<p class="mes">1.封装（类）</p>
+		<p>将数据和操作数据的方法封装在一起，使其构成一个类。数据被保护在类的内部，可以通过类对外提供的接口来访问类里面的数据</p>
+		<pre>
+		// 把抽象的事物封装成类
+		let Animal = class {
+		    constructor() {
+		        this.type = 'animal';
+		    }
+		    getType(){
+			    console.log(this.type);
+		    }
+		    eat(){
+		        console.log('动物吃食物');
+		    }
+		}
+		</pre>
+		<p class="mes">2.继承</p>
+		<p>通过 extends 实现类的继承。父类(Animal)中的属性，子类的实例化对象(tiger)也可以访问</p>
+		<p>注意类的实例化必须通过new关键字，关于类和实例化对象之间的继承请参照<a href="prototype.html">js原型链</a></p>
+		<pre>
+		class Tiger extends Animal {}
+		var tiger=new Tiger();
+		tiger.getType();//'animal'
+		</pre>
+		<p class="mes">3.多态</p>
+		<p>父类中的属性，子类在继承的基础上可以拓展自己的特性。</p>
+		<pre>
+		class Tiger extends Animal {}
+
+		class Cat extends Animal { 
+		    eat(){
+			    console.log('猫吃鱼');
+			}
+		}
+
+		class Dog extends Animal { 
+		    eat(){
+			    console.log('狗吃骨头');
+			}
+		}
+
+		var tiger=new Tiger();
+		var cat=new Cat();
+		var dog=new Dog();
+		tiger.eat();//动物吃食物
+		cat.eat();//猫吃鱼
+		dog.eat();//狗吃骨头
+		</pre>
+	</div>
+	<div class="pagelist"><div id="listPage">
+	<h2>技能&原理篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="oop">js面向对象</p>
+		<p class="linkTab" id="prototype">js原型链</p>
+		<p class="linkTab" id="bibao">闭包</p>
+		<p class="linkTab" id="loadPage">网页加载过程</p>
+		<p class="linkTab" id="kuayu">ajax跨域</p>
+		<p class="linkTab" id="appcache">appcache</p>
+		<p class="linkTab" id="shipei">不同屏幕尺寸手机浏览器适配</p>
+	</div>
+	<h2>工具篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="grunt">grunt</p>
+		<p class="linkTab" id="nginx">nginx代理</p>
+		<p class="linkTab" id="git">git</p>
+		<p class="linkTab" id="debugh5">真机调试h5页面</p>
+	</div>
+	<h2>框架篇</h2>
+	<div class="listCon">
+		<p class="linkTab" href="http://cn.vuejs.org/" id="vue">vue</p>
+		<p class="linkTab" href="https://facebook.github.io/react/" id="react">react</p>
+		<p class="linkTab" href="https://angularjs.org/" id="angular">angular</p>
+	</div>
+	<p class="linkTab good" id="good">good</p>
+</div></div>
+</body>
+</html>
