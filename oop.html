@@ -49,6 +49,7 @@
 		class Tiger extends Animal {}
 		var tiger=new Tiger();
 		tiger.getType();//'animal'
+		tiger.prototype.__proto__==Animal.prototype;//true
 		</pre>
 		<p class="mes">3.多态</p>
 		<p>父类中的属性，子类在继承的基础上可以拓展自己的特性。</p>

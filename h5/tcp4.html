@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tcp四次挥手－陈晓迪的博客</title>
+	<meta name="keywords" content="tcp连接3次握手"/>
+	<meta name="description" content="tcp连接3次握手" />
+	<meta name = "format-detection" content = "telephone=no"> 
+	<link href="images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+	<link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+	<script type="text/javascript">
+		var require = {urlArgs: "v=1556070376144"}
+		var nowPage="tcp4"
+	</script>
+	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
+	<script>
+		require.config({
+	　　　　　　baseUrl: "js/",
+			   paths: {
+	　　　　　　    "zepto": "../lib/zepto.min"
+	　　　　    }
+	　　    });
+	</script>
+	<div class="content">
+		<h1 class="title">tcp四次挥手</h1>
+		<p class="titleFont">TCP是面向连接的通信协议，建立连接以后通过四次挥手来关闭连接</p>
+		<p><img src="images/tcp4.png" style="width:300px;"></p>
+		<p class="titleFont">步骤分解：</p>
+		<p>第一次握手：客户端发送一个FIN，用来关闭客户端到服务器的数据传送，也就是客户端告诉服务器：我已经不 会再给你发数据了(当然，在fin包之前发送出去的数据，如果没有收到对应的ack确认报文，客户端依然会重发这些数据)，但是，此时客户端还可 以接受数据。</p>
+		<p>FIN=1，其序列号为seq=x（等于前面已经传送过来的数据的最后一个字节的序号加1），此时，客户端进入FIN-WAIT-1（终止等待1）状态。 TCP规定，FIN报文段即使不携带数据，也要消耗一个序号。</p>
+		<p>第二次握手：服务器发送一个FIN，用来关闭服务器到客户端的数据传送，也就是告诉客户端，我的数据也发送完了，不会再给你发数据了。由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq=z，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认。</p>
+		<p>第三次握手：服务器发送一个FIN，用来关闭服务器到客户端的数据传送，也就是告诉客户端，我的数据也发送完了，不会再给你发数据了。由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq=y，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认。</p>
+		<p>第四次握手：主动关闭方收到FIN后，发送一个ACK给被动关闭方，确认序号为收到序号+1，此时，客户端就进入了TIME-WAIT（时间等待）状态。注意此时TCP连接还没有释放，必须经过2MSL（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才进入CLOSED状态。</p>
+		<p class="titleFont">为什么建立连接是三次握手，关闭连接却是四次挥手呢？</p>
+		<p>建立连接的时候， 服务器在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。</p>
+		<p>而关闭连接时，服务器收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，而自己也未必全部数据都发送给对方了，所以己方可以立即关闭，也可以发送一些数据给对方后，再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送，从而导致多了一次。</p>
+	</div>
+	<div class="pagelist"><div id="listPage">
+	<h2>技能&原理篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="oop">js面向对象</p>
+		<p class="linkTab" id="prototype">js原型链</p>
+		<p class="linkTab" id="bibao">闭包</p>
+		<p class="linkTab" id="loadPage">网页加载过程</p>
+		<p class="linkTab" id="kuayu">ajax跨域</p>
+		<p class="linkTab" id="appcache">appcache</p>
+		<p class="linkTab" id="shipei">不同屏幕尺寸手机浏览器适配</p>
+	</div>
+	<h2>工具篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="grunt">grunt</p>
+		<p class="linkTab" id="nginx">nginx代理</p>
+		<p class="linkTab" id="git">git</p>
+		<p class="linkTab" id="debugh5">真机调试h5页面</p>
+	</div>
+	<h2>网络篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="tcp3">tcp连接三次握手</p>
+		<p class="linkTab" id="tcp4">tcp连接四次挥手</p>
+	</div>
+	<h2>框架篇</h2>
+	<div class="listCon">
+		<p class="linkTab" href="http://cn.vuejs.org/" id="vue">vue</p>
+		<p class="linkTab" href="https://facebook.github.io/react/" id="react">react</p>
+		<p class="linkTab" href="https://angularjs.org/" id="angular">angular</p>
+	</div>
+	<p class="linkTab good" id="good">good</p>
+</div></div>
+</body>
+</html>

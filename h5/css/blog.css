@@ -6,7 +6,7 @@ i,cite,em,var,address{font-style:normal;}
 caption,th{text-align:left;}
 table{border-collapse:collapse;border-spacing:0;}
 article,aside,footer,header,hgroup,nav,section,figure,figcaption,video{display: block;}
-a{color:#FFA500;cursor: pointer;text-decoration: none;}
+a{color:#FFA500;cursor: pointer;}
 a:hover{color:#ffc76d;}
 input{outline:0;border:0;}
 ::scrollbar{width:0px;height:0px;}
