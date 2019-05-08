@@ -10,19 +10,6 @@
 	<link rel="stylesheet" type="text/css" href="css/blog.css">
 </head>
 <body>
-	<script type="text/javascript">
-		var require = {urlArgs: "v=@@timestamp"}
-		var nowPage="nginx"
-	</script>
-	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
-	<script>
-		require.config({
-	　　　　　　baseUrl: "js/",
-			   paths: {
-	　　　　　　    "zepto": "../lib/zepto.min"
-	　　　　    }
-	　　    });
-	</script>
 	<div class="content">
 		<h1 class="title">Nginx</h1>
 		<p class="mes">前端开发中经常会遇到各种环境问题，本地开发时用的接口是测试环境，上线时又要改成正式环境，哪天一个不小心忘记改接口就上线，线上展示的都是测试数据就悲剧了。因此代码应该保证本地和线上一样，至于切换环境可以通过修改nginx代理来实现。</p>
@@ -98,4 +85,5 @@ http {
 	</div>
 	<div class="pagelist">@@include('html_modules/list.html')</div>
 </body>
+<script type="text/javascript" src="js/blog.min.js"></script>
 </html>

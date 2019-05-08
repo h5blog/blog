@@ -10,19 +10,6 @@
 	<link rel="stylesheet" type="text/css" href="css/blog.css">
 </head>
 <body>
-	<script type="text/javascript">
-		var require = {urlArgs: "v=@@timestamp"}
-		var nowPage="bibao"
-	</script>
-	<script type="text/javascript" src="lib/require.min.js" data-main="js/blog.min"></script>
-	<script>
-		require.config({
-	　　　　　　baseUrl: "js/",
-			   paths: {
-	　　　　　　    "zepto": "../lib/zepto.min"
-	　　　　    }
-	　　    });
-	</script>
 	<div class="content">
 		<h1 class="title">闭包</h1>
 		<p class="titleFont">闭包概念</p>
@@ -83,4 +70,5 @@
 	</div>
 	<div class="pagelist">@@include('html_modules/list.html')</div>
 </body>
+<script type="text/javascript" src="js/blog.min.js"></script>
 </html>

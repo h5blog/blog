@@ -1,15 +1,18 @@
-define(["zepto"],function($){
-	if(nowPage){
-	    $("#listPage").find("#"+nowPage).addClass("active");
-	}else{
-		$("#listPage").find("#prototype").addClass("active");
-	}
-    $('body').delegate('.linkTab','click',function(){
-        var tag=$(this).attr("id");
-        if($(this).attr("href")){
-        	location.href=$(this).attr("href");
+var nowPage=location.href.split("blog/h5/")[1].split(".html")[0];
+var listPage=document.querySelector("#listPage");
+if(nowPage){
+    listPage.querySelector("#"+nowPage).setAttribute("class","linkTab active");
+}else{
+	listPage.querySelector("#prototype").setAttribute("class","linkTab active");
+}
+document.querySelector("#listPage").addEventListener("click",function(event){
+    var ele=event.target;
+    if ((ele.className).indexOf("linkTab")>=0) {
+    	var hrefStr=ele.getAttribute("href");
+        if(hrefStr){
+        	location.href=hrefStr;
         }else{
-	        location.href=tag+".html";
+	        location.href=ele.getAttribute("id")+".html";
 	    }
-    })
-})
+	}
+});
