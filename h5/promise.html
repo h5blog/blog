@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Grunt－陈晓迪的博客</title>
+    <meta name="keywords" content="Grunt 配置步骤 package.json Gruntfile" />
+    <meta name="description" content="Grunt 配置步骤 package.json Gruntfile" />
+    <meta name="format-detection" content="telephone=no" />
+    <link href="images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <link rel="stylesheet" type="text/css" href="css/blog.css" />
+  </head>
+  <body>
+    <div class="content">
+      <h1 class="title">Promise</h1>
+      <p class="mes">
+        Promise是ECMAscript 6
+        原生提供的一个对象。主要用于异步计算，可以将异步操作队列化，按照期望的顺序执行，并返回结果，可以在对象之间传递和操作promise，帮助我们处理队列
+      </p>
+      <p class="titleFont">Promise的基本用法</p>
+      <pre>
+        new Promise((resolve, reject) => {
+          console.log('Initial');
+          resolve();
+          //reject();
+          //throw 'catch text';
+        })
+        .then((result)=> {
+          console.log("resolve执行成功回掉并改变Promise状态为fulfilled",result);
+          throw 'catch text';
+        }, (error)=> {
+          console.log("reject执行失败回掉并改变Promise状态为rejected",error);
+          return error;
+        }).catch(function(reason) {
+          //异常
+          console.log("catch",reason)
+        }).finally(function(data) {
+          //无论状态为fulfilled还是rejected，最后都会执行finally
+          console.log("finally",data)
+        })
+		  </pre
+      >
+      <p class="titleFont">Promise.race的基本用法</p>
+      <p>
+        Promise.all()
+        方法接收一个promise的iterable类型（注：Array，Map，Set都属于ES6的iterable类型）的输入，输入的所有promise的resolve回调的结果是一个数组。它的reject回调执行是，只要任何一个输入的promise的reject回调执行或者输入不合法的promise就会立即抛出错误，并且reject的是第一个抛出的错误信息。
+      </p>
+      <pre>
+        const promise1 = Promise.resolve(3);
+        const promise2 = 42;
+        const promise3 = new Promise((resolve, reject) => {
+          setTimeout(resolve, 100, 'foo');
+        });
+        Promise.all([promise1, promise2, promise3]).then((values) => {
+          console.log(values);
+        });
+        //Array [3, 42, "foo"]
+      </pre>
+      <p class="titleFont">Promise.all的基本用法</p>
+      <p>
+        Promise.race(iterable) 方法返回一个
+        promise，一旦迭代器中的某个promise解决或拒绝，返回的
+        promise就会解决或拒绝。
+      </p>
+      <pre>
+        const promise1 = Promise.resolve(3);
+        const promise2 = 42;
+        const promise3 = new Promise((resolve, reject) => {
+          setTimeout(resolve, 100, 'foo');
+        });
+        Promise.all([promise1, promise2, promise3]).then((values) => {
+          console.log(values);
+        });
+        //Array [3, 42, "foo"]
+      </pre>
+      <p class="titleFont">Promise的简单实现</p>
+      <p>1.一个promise必须有3个状态，pending,fulfilled,resolved</p>
+      <p>
+        2. 一个promise必须有一个then方法，then方法接受两个参数，resolve和reject
+      </p>
+      <p>3.实现链式调用，then方法必须返回一个promise</p>
+      <pre>
+        var Promise = function (fn) {
+          var state = 'pending';
+          var doneList = [];
+          var failList= [];
+          this.then = function(done ,fail){
+              switch(state){
+                  case 'pending':
+                      doneList.push(done);
+                      //每次如果没有推入fail方法，我也会推入一个null来占位
+                      failList.push(fail || null);
+                      return this;
+                      break;
+                  case 'fulfilled':
+                      done();
+                      return this;
+                      break;
+                  case 'rejected':
+                      fail();
+                      return this;
+                      break;
+              }
+          }
+          function tryToJson(obj) {
+              var value;
+              try {
+                  value = JSON.parse(obj);
+              } catch (e) {
+                  value = obj;
+              }
+              return value
+          }
+          function resolve(newValue){
+              state = 'fulfilled';
+              setTimeout(function(){
+                  var value = tryToJson(newValue);
+                  for (var i = 0; i < doneList.length; i++){
+                      var temp = doneList[i](value);
+                      if (temp instanceof Promise) {
+                          var newP = temp;
+                          for (i++; i < doneList.length; i++) {
+                              newP.then(doneList[i], failList[i]);
+                          }
+                      } else {
+                          value = temp;
+                      }
+                  }
+              }, 0);
+          }
+          function reject(newValue){
+              state = 'rejected';
+              setTimeout(function(){
+                  var value = tryToJson(newValue);
+                  var tempRe = failList[0](value);
+                  //如果reject里面传入了一个promise，那么执行完此次的fail之后，将剩余的done和fail传入新的promise中
+                  if(tempRe instanceof Promise){
+                      var newP = tempRe;
+                      for (i=1;i<doneList.length;i++) {
+                          newP.then(doneList[i],failList[i]);
+                      }
+                  } else {
+                      //如果不是promise，执行完当前的fail之后，继续执行doneList
+                      value = tempRe;
+                      doneList.shift();
+                      failList.shift();
+                      resolve(value);
+                  }
+              }, 0);
+          }
+      
+          fn(resolve,reject);
+      }
+      </pre>
+    </div>
+    <div class="pagelist"><div id="listPage">
+	<h2>技能&原理篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="oop">js面向对象</p>
+		<p class="linkTab" id="prototype">js原型链</p>
+		<p class="linkTab" id="bibao">闭包</p>
+		<p class="linkTab" id="neicun">js内存</p>
+		<p class="linkTab" id="loadPage">网页加载过程</p>
+		<p class="linkTab" id="kuayu">ajax跨域</p>
+		<p class="linkTab" id="appcache">appcache</p>
+		<p class="linkTab" id="shipei">不同屏幕尺寸手机浏览器适配</p>
+	</div>
+	<h2>工具篇</h2>
+	<div class="listCon">
+		
+		<p class="linkTab" href="https://webpack.docschina.org/concepts/"" id="webpack">webpack</p>
+		<p class="linkTab" id="grunt">grunt</p>
+		<p class="linkTab" id="nginx">nginx代理</p>
+		<p class="linkTab" id="git">git</p>
+		<p class="linkTab" id="debugh5">真机调试h5页面</p>
+	</div>
+	<h2>网络篇</h2>
+	<div class="listCon">
+		<p class="linkTab" id="tcp3">tcp连接三次握手</p>
+		<p class="linkTab" id="tcp4">tcp连接四次挥手</p>
+	</div>
+	<h2>框架篇</h2>
+	<div class="listCon">
+		<p class="linkTab" href="http://cn.vuejs.org/" id="vue">vue</p>
+		<p class="linkTab" href="https://facebook.github.io/react/" id="react">react</p>
+	</div>
+	<p class="linkTab good" href="good.html"  id="good">good</p>
+</div></div>
+  </body>
+  <script type="text/javascript" src="js/blog.min.js"></script>
+</html>
