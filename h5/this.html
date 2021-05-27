@@ -12,15 +12,15 @@
   <body>
     <div class="content">
       <h1 class="title">This</h1>
-      <p class="mes">
+      <p>
         this的指针作用域，在全局环境中执行this，表示Global对象，在浏览器中表示window对象
       </p>
       <img src="images/this1.png" style="width: 400px" />
-      <p class="mes">
+      <p>
         在函数执行环境中使用this时,如果函数没有明显的作为非window对象的属性，而只是定义了函数，不管这个函数是不是定义在另一个函数中，这个函数中的this仍然表示window对象。
       </p>
       <img src="images/this2.png" style="width: 400px" />
-      <p class="mes">
+      <p>
         函数内部中this值不是静态的，是动态的，可以改变的，每次调用一个函数时，它总是在重新求值。函数内部中的this值，实际上是由函数被调用的父作用域提供，依赖实际函数的语法。
       </p>
       <div class="imgCon">
@@ -37,16 +37,16 @@
         test(); // 这里调用了函数
         // test不是一个对象的引用，所以this值代表全局对象。
       </pre>
-      <p class="mes">
+      <p>
         当通过new运算符来调用函数时，函数被当做一个构造函数，this指向构造函数创建出来的对象。
       </p>
       <img src="images/this5.png" style="width: 400px" />
-      <p class="mes">call apply bind 改变this</p>
-      <p>
+      <p>call apply bind 改变this</p>
+      <img src="images/this6.png" style="width: 400px" />
+      <p class="mes">
         call() 和 apply() 区别在于，后面的传参的格式是：数组的形式； 而 bind()
         则是返回一个绑定新环境的 function，等着被调用。
       </p>
-      <img src="images/this6.png" style="width: 400px" />
     </div>
     <div class="pagelist"><div id="listPage">
 	<h2>技能&原理篇</h2>
@@ -55,6 +55,7 @@
 		<p class="linkTab" id="prototype">js原型链</p>
 		<p class="linkTab" id="bibao">闭包</p>
 		<p class="linkTab" id="neicun">js内存</p>
+		<p class="linkTab" id="this">this</p>
 		<p class="linkTab" id="loadPage">网页加载过程</p>
 		<p class="linkTab" id="kuayu">ajax跨域</p>
 		<p class="linkTab" id="appcache">appcache</p>
