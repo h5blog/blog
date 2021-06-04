@@ -127,6 +127,7 @@
 	    run: 'animal began to run'
 	};
 	animal.hasOwnProperty('run');// false
+	// 使用其它对象的 hasOwnProperty，并将其上下文设置为foo
 	({}).hasOwnProperty.call(animal, 'run'); // true
 	</pre
       >
